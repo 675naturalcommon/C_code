@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月相模拟器 - 简化版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a2a;
+            color: #f0f0f0;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        #app {
+            display: flex;
+            height: 100vh;
+        }
+
+        #canvasContainer {
+            flex: 1;
+            position: relative;
+        }
+
+        canvas {
+            display: block;
+            outline: none;
+        }
+
+        #controls {
+            width: 300px;
+            background: rgba(10, 15, 30, 0.9);
+            padding: 20px;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+        }
+
+        .controls-section {
+            background: rgba(20, 25, 40, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #7ab8ff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #c0c8e0;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 25, 45, 0.8);
+            color: white;
+            font-size: 14px;
+        }
+
+        button {
+            background: #3a7bd5;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4a9eff;
+        }
+
+        .info-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .info-item {
+            background: rgba(30, 40, 60, 0.7);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #8a9bb8;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .phase-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(15, 25, 45, 0.5);
+            border-radius: 10px;
+        }
+
+        .moon-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #333;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #666;
+            border-radius: 50%;
+        }
+
+        .phase-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: #7ab8ff;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="canvasContainer">
+            <canvas id="moonCanvas"></canvas>
+        </div>
+
+        <div id="controls">
+            <div class="controls-section">
+                <h2>日期时间</h2>
+                <div class="form-group">
+                    <label for="date">选择日期</label>
+                    <input type="date" id="date" value="2024-01-01">
+                </div>
+                <div class="form-group">
+                    <label for="time">选择时间</label>
+                    <input type="time" id="time" value="12:00">
+                </div>
+                <button id="useCurrentTime">使用当前时间</button>
+            </div>
+
+            <div class="controls-section">
+                <h2>月相信息</h2>
+                <div class="phase-visual">
+                    <div class="moon-icon">
+                        <div class="phase-fill" id="phaseFill"></div>
+                    </div>
+                    <div class="phase-name" id="phaseName">满月</div>
+                </div>
+                <div class="info-display">
+                    <div class="info-item">
+                        <div class="info-label">照明比例</div>
+                        <div class="info-value" id="illumination">100%</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">月龄</div>
+                        <div class="info-value" id="moonAge">14.8 天</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <h2>光源控制</h2>
+                <div class="form-group">
+                    <label for="lightAngle">太阳方位角: <span id="lightAngleValue">0°</span></label>
+                    <input type="range" id="lightAngle" min="0" max="360" value="0" step="1">
+                </div>
+                <button id="resetLight">重置光源</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let scene, camera, renderer, moon, sunLight, controls;
+
+        // DOM元素
+        const dateInput = document.getElementById('date');
+        const timeInput = document.getElementById('time');
+        const useCurrentTimeBtn = document.getElementById('useCurrentTime');
+        const phaseName = document.getElementById('phaseName');
+        const phaseFill = document.getElementById('phaseFill');
+        const illumination = document.getElementById('illumination');
+        const moonAge = document.getElementById('moonAge');
+        const lightAngle = document.getElementById('lightAngle');
+        const lightAngleValue = document.getElementById('lightAngleValue');
+        const resetLightBtn = document.getElementById('resetLight');
+
+        // 初始化
+        init();
+
+        function init() {
+            // 创建场景
+            scene = new THREE.Scene();
+
+            // 创建相机
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 5);
+
+            // 创建渲染器
+            renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('moonCanvas'),
+                antialias: true
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+
+            // 创建月球
+            createMoon();
+
+            // 添加光源
+            createLights();
+
+            // 事件监听器
+            setupEventListeners();
+
+            // 初始更新
+            useCurrentTime();
+
+            // 开始动画循环
+            animate();
+        }
+
+        function createMoon() {
+            const geometry = new THREE.SphereGeometry(1, 64, 64);
+            const textureLoader = new THREE.TextureLoader();
+
+            // 月球纹理
+            const moonTexture = textureLoader.load('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/512px-FullMoon2010.jpg');
+
+            const material = new THREE.MeshStandardMaterial({
+                map: moonTexture,
+                roughness: 0.8,
+                metalness: 0.02
+            });
+
+            moon = new THREE.Mesh(geometry, material);
+            moon.castShadow = true;
+            moon.receiveShadow = true;
+            scene.add(moon);
+        }
+
+        function createLights() {
+            // 太阳光源
+            sunLight = new THREE.DirectionalLight(0xffffff, 2);
+            sunLight.position.set(5, 0, 0);
+            sunLight.castShadow = true;
+            scene.add(sunLight);
+
+            // 环境光
+            const ambientLight = new THREE.AmbientLight(0x333344, 0.2);
+            scene.add(ambientLight);
+        }
+
+        function setupEventListeners() {
+            // 窗口大小调整
+            window.addEventListener('resize', onWindowResize);
+
+            // 控制面板事件
+            dateInput.addEventListener('change', updateMoonPhase);
+            timeInput.addEventListener('change', updateMoonPhase);
+            useCurrentTimeBtn.addEventListener('click', useCurrentTime);
+
+            lightAngle.addEventListener('input', function() {
+                lightAngleValue.textContent = `${this.value}°`;
+                updateLightPosition();
+            });
+
+            resetLightBtn.addEventListener('click', function() {
+                lightAngle.value = 0;
+                lightAngleValue.textContent = "0°";
+                updateLightPosition();
+            });
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function updateLightPosition() {
+            const angle = parseFloat(lightAngle.value) * Math.PI / 180;
+            sunLight.position.x = Math.cos(angle) * 5;
+            sunLight.position.z = Math.sin(angle) * 5;
+            sunLight.position.y = 0;
+        }
+
+        function useCurrentTime() {
+            const now = new Date();
+            const dateStr = now.toISOString().split('T')[0];
+            const timeStr = now.toTimeString().split(' ')[0].substring(0, 5);
+
+            dateInput.value = dateStr;
+            timeInput.value = timeStr;
+
+            updateMoonPhase();
+        }
+
+        function updateMoonPhase() {
+            const date = dateInput.value;
+            const time = timeInput.value;
+
+            if (!date || !time) return;
+
+            const dateTime = new Date(`${date}T${time}`);
+            const phaseData = calculateMoonPhase(dateTime);
+
+            // 更新显示
+            phaseName.textContent = phaseData.phaseName;
+            illumination.textContent = `${Math.round(phaseData.illumination * 100)}%`;
+            moonAge.textContent = `${phaseData.moonAge.toFixed(1)} 天`;
+
+            // 更新进度条
+            phaseFill.style.width = `${phaseData.illumination * 100}%`;
+
+            // 根据月相调整光照位置
+            const angle = phaseData.phase * Math.PI * 2;
+            const targetAngle = Math.round(angle * 180 / Math.PI);
+
+            lightAngle.value = targetAngle;
+            lightAngleValue.textContent = `${targetAngle}°`;
+            updateLightPosition();
+        }
+
+        function calculateMoonPhase(date) {
+            // 简化版月相计算
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const hour = date.getHours() + date.getMinutes() / 60;
+
+            // 计算儒略日
+            let jd = (367 * year)
+                - Math.floor(7 * (year + Math.floor((month + 9) / 12)) / 4)
+                + Math.floor(275 * month / 9)
+                + day + 1721013.5
+                + (hour / 24);
+
+            // 计算自2000年1月6日（新月）以来的天数
+            const daysSinceNew = jd - 2451549.5;
+
+            // 月相周期（29.53058867天）
+            const lunation = daysSinceNew / 29.53058867;
+            const phase = lunation - Math.floor(lunation);
+
+            // 月龄（天数）
+            const age = phase * 29.53;
+
+            // 照明比例和月相名称
+            let illumination, phaseName;
+
+            if (phase < 0.03 || phase >= 0.97) {
+                phaseName = "新月";
+                illumination = 0;
+            } else if (phase < 0.22) {
+                phaseName = "蛾眉月";
+                illumination = phase / 0.22;
+            } else if (phase < 0.28) {
+                phaseName = "上弦月";
+                illumination = 0.5;
+            } else if (phase < 0.47) {
+                phaseName = "盈凸月";
+                illumination = 0.5 + (phase - 0.28) / 0.38;
+            } else if (phase < 0.53) {
+                phaseName = "满月";
+                illumination = 1;
+            } else if (phase < 0.72) {
+                phaseName = "亏凸月";
+                illumination = 1 - (phase - 0.53) / 0.38;
+            } else if (phase < 0.78) {
+                phaseName = "下弦月";
+                illumination = 0.5;
+            } else {
+                phaseName = "残月";
+                illumination = (0.97 - phase) / 0.19 * 0.5;
+            }
+
+            return {
+                phase: phase,
+                phaseName: phaseName,
+                illumination: Math.max(0, Math.min(1, illumination)),
+                moonAge: age
+            };
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 月球自转
+            moon.rotation.y += 0.001;
+
+            // 渲染场景
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>
