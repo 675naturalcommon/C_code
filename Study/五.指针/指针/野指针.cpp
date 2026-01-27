@@ -138,20 +138,21 @@ using namespace std;
 //	}
 //	return count;
 //}
+//
+//int my_strlen(const char* str)
+//{
+//	char* str_start = (char*)str;
+//	while (*str != '\0')
+//	{
+//		str++;
+//	}
+//	return str - str_start;
+//}
+//int main()
+//{
+//	int len = my_strlen("hello");//这里传递的是常量字符串"hello",存放在只读区,
+//	                //如果函数声明是int my_strlen(char* str),则会报错,因为不能将const char*转换为char*
+//	cout << "len = " << len << endl;
+//	return 0;
+//}
 
-int my_strlen(const char* str)
-{
-	char* str_start = (char*)str;
-	while (*str != '\0')
-	{
-		str++;
-	}
-	return str - str_start;
-}
-int main()
-{
-	int len = my_strlen("hello");//这里传递的是常量字符串"hello",存放在只读区,
-	                //如果函数声明是int my_strlen(char* str),则会报错,因为不能将const char*转换为char*
-	cout << "len = " << len << endl;
-	return 0;
-}
