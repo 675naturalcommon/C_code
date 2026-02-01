@@ -135,19 +135,19 @@
 // 是为了实现链式访问
 // strcpy函数返回的是目标空间的起始地址
 // 
-char* my_strcpy1(char* dest, const char* src)
-{
-	if (dest == NULL || src == NULL)
-	{
-		return NULL;
-	}
-	char* ret = dest;
-	while (*dest++ = *src++)
-	{
-		;
-	}
-	return ret;
-}
+//char* my_strcpy1(char* dest, const char* src)
+//{
+//	if (dest == NULL || src == NULL)
+//	{
+//		return NULL;
+//	}
+//	char* ret = dest;
+//	while (*dest++ = *src++)
+//	{
+//		;
+//	}
+//	return ret;
+//}
 
 //使用索引实现
 //char* my_strcpy1(char* dest, const char* src)
@@ -190,15 +190,17 @@ char* my_strcpy1(char* dest, const char* src)
 //}
 // 
 // 
-int main()
-{
-	char arr1[20] = "xxxxxxxxxxxxxx";
-	char arr2[] = "Hello bit";
-	char* ret = my_strcpy1(arr1, arr2);
-	//printf("%s\n", ret);
-	printf("%s\n", my_strcpy1(arr1, arr2));
-	return 0;
-}
+//int main()
+//{
+//	char arr1[20] = "xxxxxxxxxxxxxx";
+//	char arr2[] = "Hello bit";
+//	char* ret = my_strcpy1(arr1, arr2);
+//	//printf("%s\n", ret);
+//
+//	printf("%s\n", my_strcpy1(arr1, arr2));
+//
+//	return 0;
+//}
 
 
 //int main()
