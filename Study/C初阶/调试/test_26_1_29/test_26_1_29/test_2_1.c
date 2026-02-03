@@ -315,24 +315,26 @@
 //	printf("%d\n", count);
 //	return 0;
 //}
+//
+//int max_soda(int money)
+//{
+//	if (money <= 0)
+//	{
+//		return 0;
+//	}
+//	else
+//	{
+//		return 2 * money - 1;
+//	}
+//}
+//
+//int main()
+//{
+//	int money = 0;
+//	scanf("%d", &money);
+//	int total = max_soda(money);
+//	printf("%d", total);
+//	return 0;
+//}
 
-int max_soda(int money)
-{
-	if (money <= 0)
-	{
-		return 0;
-	}
-	else
-	{
-		return 2 * money - 1;
-	}
-}
 
-int main()
-{
-	int money = 0;
-	scanf("%d", &money);
-	int total = max_soda(money);
-	printf("%d", total);
-	return 0;
-}
