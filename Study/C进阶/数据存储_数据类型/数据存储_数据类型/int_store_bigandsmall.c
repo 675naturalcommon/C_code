@@ -153,17 +153,17 @@
 //	return 0;
 //}
 
-int main()
-{
-	/*int len = strlen("abcdef");
-	printf("%d\n", len);*/
-
-	//strlen返回的值是size_t -> unsigned int
-	
-	if (strlen("abc") - strlen("abcdef") >= 0)
-		printf(">\n");
-	else
-		printf("<\n");
-	return 0;
-}
+//int main()
+//{
+//	/*int len = strlen("abcdef");
+//	printf("%d\n", len);*/
+//
+//	//strlen返回的值是size_t -> unsigned int
+//	
+//	if (strlen("abc") - strlen("abcdef") >= 0)
+//		printf(">\n");
+//	else
+//		printf("<\n");
+//	return 0;
+//}
 
