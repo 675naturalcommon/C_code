@@ -167,3 +167,214 @@
 //	return 0;
 //}
 
+
+//
+//int main()
+//{
+//	int n = 9;
+//	float* pFloat = (float*)&n;
+//
+//	printf("n的值为:%d\n", n);
+//	printf("*pFloat的值为:%f\n", *pFloat);
+//	*pFloat = 9.0;
+//	printf("n的值为:%d\n", n);
+//	printf("*pFloat的值为:%f\n", *pFloat);
+//
+//	return 0;
+//}
+
+
+//输入一个整数数组,实现一个函数来调整该数组中数字的顺序
+//使得数组中所有的奇数位于数组的前半部分,所有偶数位于数组的后半部分
+
+#include<assert.h>
+//void sort_array(int* arr, int size)
+//{
+//    assert(arr != NULL);
+//
+//    int left = 0;
+//    int right = size - 1;
+//
+//    //使用双指针法
+//    while (left < right)
+//    {
+//        //从左向右找第一个偶数
+//        while (left < right && (arr[left] % 2 == 1))
+//        {
+//            //arr[left] %2 == 1 判断当前元素是否为奇数,如果是奇数,说明他在正确位置--前半部分
+//            //继续向后移动,直到找到偶数  %2==0 他应该在后半部分,不满足循环条件,跳出循环
+//            left++;
+//        }
+//
+//        //从右向左找第一个奇数
+//        while (left < right && (arr[right] % 2 == 0))
+//        {
+//            //arr[right] % 2 == 0判断元素是否是偶数,如果是偶数,满足循环条件,进入循环
+//            //如果是奇数,跳出循环
+//            right--;
+//        }
+//
+//        //交换奇数和偶数
+//        if (left < right)
+//        {
+//            int temp = arr[left];
+//            arr[left] = arr[right];
+//            arr[right] = temp;
+//            left++;
+//            right--;
+//        }
+//    }
+//}
+//
+//int main()
+//{
+//    int arr[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+//    int size = sizeof(arr) / sizeof(arr[0]);
+//
+//    sort_array(arr, size);
+//
+//    // 直接打印数组，不使用指针遍历直到0
+//    for (int i = 0; i < size; i++)
+//    {
+//        printf("%d ", arr[i]);
+//    }
+//
+//    return 0;
+//}
+
+
+//输入两个升序排列的序列,将两个序列合并为一个有序序列并输出
+//输入包含三行,第一行包含两个正整数n和m,用空格分隔.
+//n表示第二行第一个升序序列中数字的个数,m表示第三行第二个升序序列中数字的个数
+//第二行包含n个整数, 用空格分隔.第三行包含m个整数, 用空格分隔
+//输出为一行, 输出长度为n + m的升序序列, 
+//即长度为n的升序序列和长度为m的升序序列中的元素重新进行升序序列排列合并
+
+//int main()
+//{
+//	int n = 0;
+//	int m = 0;
+//	scanf("%d %d", &n, &m);
+//	/*int arr1[n];   C99支持变长数组
+//	int arr2[m];*/
+//	int arr1[10000];
+//	int arr2[10000];
+//	int i = 0;
+//	//输入n个整数
+//	for (i = 0; i < n; i++)
+//	{
+//		scanf("%d", arr1 + i);
+//	}
+//	//输入m个整数
+//	for (i = 0; i < m; i++)
+//	{
+//		scanf("%d", arr2 + i);
+//	}
+//
+//	//合并打印
+//	int j = 0;
+//	int k = 0;
+//	while (j < n && k < m)
+//	{
+//		if (arr1[j] < arr2[k])
+//		{
+//			printf("%d ", arr1[j]);
+//			j++;
+//		}
+//		else
+//		{
+//			printf("%d ", arr2[k]);
+//			k++;
+//		}
+//	}
+//	//两个数组不等长,将更长数组的剩余元素进行打印
+//	if (j < n)
+//	{
+//		for (; j < n; j++)
+//		{
+//			printf("%d ", arr1[j]);
+//		}
+//	}
+//	else
+//	{
+//		for (; k < m; k++)
+//		{
+//			printf("%d ", arr2[k]);
+//		}
+//	}
+//	return 0;
+//}
+
+
+
+//int main()
+//{
+//	int n = 0;
+//	int m = 0;
+//	scanf("%d %d", &n, &m);
+//	/*int arr1[n];   C99支持变长数组
+//	int arr2[m];*/
+//	int arr1[10000];
+//	int arr2[10000];
+//	int arr3[10000];
+//	int i = 0;
+//	//输入n个整数
+//	for (i = 0; i < n; i++)
+//	{
+//		scanf("%d", arr1 + i);
+//	}
+//	//输入m个整数
+//	for (i = 0; i < m; i++)
+//	{
+//		scanf("%d", arr2 + i);
+//	}
+//
+//	//合并打印
+//	int j = 0;
+//	int k = 0;
+//	int r = 0;
+//	while (j < n && k < m)
+//	{
+//		if (arr1[j] < arr2[k])
+//		{
+//			arr3[r++] = arr1[j];
+//			j++;
+//		}
+//		else
+//		{
+//			arr3[r++] = arr2[k];
+//			k++;
+//		}
+//	}
+//	//两个数组不等长,将更长数组的剩余元素进行打印
+//	if (j < n)
+//	{
+//		for (; j < n; j++)
+//		{
+//			arr3[r++] = arr1[j];
+//		}
+//	}
+//	else
+//	{
+//		for (; k < m; k++)
+//		{
+//			arr3[r++] = arr2[k];
+//		}
+//	}
+//
+//	for (i = 0; i < n + m; i++)
+//	{
+//		printf("%d ", arr3[i]);
+//	}
+//	return 0;
+//}
+
+
+
+
+
+
+
+
+
+
