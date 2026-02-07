@@ -42,7 +42,7 @@
 //	//所以(void(*)())0表示将整数0强制转换为这种类型,相当于:我有一个指向地址0的函数指针
 //	//*(void(*)())0获取地址0处的"函数"
 //	//(*(void(*)())0)()最后一步就是函数调用
-//	
+//
 //
 //	void (*signal(int, void(*)(int)))(int);
 //	pf_t(signal(int, pf_t));//和上面的声明是等价的
@@ -104,8 +104,8 @@
 //int main()
 //{
 //	int input = 0;
-//	
-//	do 
+//
+//	do
 //	{
 //		menu();
 //		printf("请选择:->");
@@ -201,42 +201,59 @@ int Div(int x, int y)
 {
 	return x / y;
 }
+//
+//
+//
+//int main()
+//{
+//	int input = 0;
+//	int x = 0;
+//	int y = 0;
+//	int ret = 0;
+//
+//	int (*pfArr[5])(int, int) = { NULL, Add, Sub, Mul, Div };//函数指针数组,0位置不使用
+//
+//
+//
+//	do
+//	{
+//		menu();
+//		printf("请选择:->");
+//		scanf("%d", &input);
+//
+//		if (input == 0)
+//		{
+//			printf("退出计算器\n");
+//		}
+//		else if (input >= 1 && input <= 4)
+//		{
+//			printf("请输入两个操作数:");
+//			scanf("%d %d", &x, &y);
+//			ret = pfArr[input](x, y);
+//			printf("%d\n", ret);
+//		}
+//		else
+//		{
+//			printf("输入错误\n");
+//		}
+//	} while (input);
+//	return 0;
+//}
+//
+
+//
+//int main()
+//{
+//	//函数指针数组
+//	int (*pfArr[5])(int, int) = { NULL, Add, Sub, Mul, Div };//函数指针数组,0位置不使用
+//
+//	//指向[函数指针数组]的指针
+//
+//	int (*(*ppfArr)[5])(int, int) = &pfArr;
+//	//指向数组的元素类型是函数指针,ppfArr先和*结合,说明是指针,有[5]说明指向的是数组
+//	//剩下int (*)(int ,int)
+//	return 0;
+//}
 
 
-
-int main()
-{
-	int input = 0;
-	int x = 0;
-	int y = 0;
-	int ret = 0;
-
-	int (*pfArr[5])(int, int) = { NULL, Add, Sub, Mul, Div };//函数指针数组,0位置不使用
-
-	
-
-	do 
-	{
-		menu();
-		printf("请选择:->");
-		scanf("%d", &input);
-
-		if (input == 0)
-		{
-			printf("退出计算器\n");
-		}
-		else if (input >= 1 && input <= 4)
-		{
-			printf("请输入两个操作数:");
-			scanf("%d %d", &x, &y);
-			ret = pfArr[input](x, y);
-			printf("%d\n", ret);
-		}
-		else
-		{
-			printf("输入错误\n");
-		}
-	} while (input);
-	return 0;
-}
 
