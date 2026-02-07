@@ -61,6 +61,117 @@
 //函数指针的用途
 
 //写一个计算器,实现加法,减法,乘法,除法
+//
+//void menu()
+//{
+//	printf("********************\n");
+//	printf("****1.Add  2.Sub****\n");
+//	printf("****3.Mul  4.Div****\n");
+//	printf("****0.Exit     ****\n");
+//	printf("********************\n");
+//}
+//
+//int Add(int x, int y)
+//{
+//	return x + y;
+//}
+//
+//int Sub(int x, int y)
+//{
+//	return x - y;
+//}
+//
+//int Mul(int x, int y)
+//{
+//	return x * y;
+//}
+//
+//int Div(int x, int y)
+//{
+//	return x / y;
+//}
+//
+//void calc(int (*pf)(int x, int y))//此处的x,y可以给也可以不给
+//{
+//	int x = 0;
+//	int y = 0;
+//	printf("请输入计算数:");
+//	scanf("%d %d", &x, &y);
+//	int ret = 0;
+//	ret = pf(x, y);
+//	printf("%d\n", ret);
+//}
+//int main()
+//{
+//	int input = 0;
+//	
+//	do 
+//	{
+//		menu();
+//		printf("请选择:->");
+//		scanf("%d", &input);
+//		switch (input)
+//		{
+//			case 1:
+//				calc(Add);
+//				break;
+//			case 2:
+//				calc(Sub);
+//				break;
+//			case 3:
+//				calc(Mul);
+//				break;
+//			case 4:
+//				calc(Div);
+//				break;
+//			case 0:
+//				printf("已退出计算.\n");
+//				break;
+//			default:
+//				printf("输入错误\n");
+//				break;
+//		}
+//	} while (input);
+//	return 0;
+//}
+
+//
+//int Add(int x, int y)
+//{
+//	return x + y;
+//}
+//
+//int Sub(int x, int y)
+//{
+//	return x - y;
+//}
+//
+//int Mul(int x, int y)
+//{
+//	return x * y;
+//}
+//
+//int Div(int x, int y)
+//{
+//	return x / y;
+//}
+//
+//int main()
+//{
+//	int (*pf) (int, int) = Add;  //pf是函数指针
+//	int (*arr[4])(int ,int) = {Add, Sub, Mul, Div};//函数指针数组
+//	//数组每个元素都是一个函数指针,指向一个有两个int参数,返回int的函数,去掉arr[4]就是函数指针类型
+//	//int (*)(int, int)就是函数指针类型
+//
+//	int i = 0;
+//	for (i = 0; i < 4; i++)
+//	{
+//		int ret = arr[i](20, 10);//通过函数指针数组调用函数
+//		printf("%d\n", ret);
+//	}
+//	return 0;
+//}
+
 
 void menu()
 {
@@ -91,46 +202,41 @@ int Div(int x, int y)
 	return x / y;
 }
 
-void calc(int (*pf)(int x, int y))
-{
-	int x = 0;
-	int y = 0;
-	printf("请输入计算数:");
-	scanf("%d %d", &x, &y);
-	int ret = 0;
-	ret = pf(x, y);
-	printf("%d\n", ret);
-}
+
+
 int main()
 {
 	int input = 0;
+	int x = 0;
+	int y = 0;
+	int ret = 0;
+
+	int (*pfArr[5])(int, int) = { NULL, Add, Sub, Mul, Div };//函数指针数组,0位置不使用
+
 	
+
 	do 
 	{
 		menu();
 		printf("请选择:->");
 		scanf("%d", &input);
-		switch (input)
+
+		if (input == 0)
 		{
-			case 1:
-				calc(Add);
-				break;
-			case 2:
-				calc(Sub);
-				break;
-			case 3:
-				calc(Mul);
-				break;
-			case 4:
-				calc(Div);
-				break;
-			case 0:
-				printf("已退出计算.\n");
-				break;
-			default:
-				printf("输入错误\n");
-				break;
+			printf("退出计算器\n");
+		}
+		else if (input >= 1 && input <= 4)
+		{
+			printf("请输入两个操作数:");
+			scanf("%d %d", &x, &y);
+			ret = pfArr[input](x, y);
+			printf("%d\n", ret);
+		}
+		else
+		{
+			printf("输入错误\n");
 		}
 	} while (input);
 	return 0;
 }
+
