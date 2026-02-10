@@ -71,5 +71,64 @@
         "time.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
-    "github.copilot.nextEditSuggestions.enabled": false
+    "github.copilot.nextEditSuggestions.enabled": false,
+
+    // ============ 以下是新增的 Code Runner 配置 ============
+    "code-runner.executorMap": {
+        "c": "cd $dir && D:\\msys\\ucrt64\\bin\\gcc.exe -fdiagnostics-color=always -g $fileName -o $fileNameWithoutExt.exe && $dir$fileNameWithoutExt.exe",
+        "cpp": "cd $dir && D:\\msys\\ucrt64\\bin\\g++.exe -fdiagnostics-color=always -g $fileName -o $fileNameWithoutExt.exe && $dir$fileNameWithoutExt.exe",
+        "python": "python -u",
+        "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+        "javascript": "node"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.ignoreSelection": false,
+    "code-runner.preserveFocus": false,
+    "code-runner.showExecutionMessage": true,
+    "code-runner.respectShebang": false,
+    "code-runner.executorMapByFileExtension": {
+        ".vb": "cd $dir && vbc /nologo $fileName && $dir$fileNameWithoutExt"
+    },
+
+    // ============ 可选：添加 C/C++ 扩展的配置 ============
+    "C_Cpp.default.compilerPath": "D:\\msys\\ucrt64\\bin\\gcc.exe",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.intelliSenseMode": "windows-gcc-x64",
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/**"
+    ]
+    // ============ 新增的 Memory View 配置 ============
+    "memoryView.general.defaultEndianness": "little",
+    "memoryView.general.defaultViewType": "hex",
+    "memoryView.general.showAsciiColumn": true,
+    "memoryView.general.bytesPerLine": 16,
+    "memoryView.general.highlightChangedBytes": true,
+
+    "memoryView.debuggerIntegration.enabled": true,
+    "memoryView.debuggerIntegration.autoOpen": true,
+    "memoryView.debugger.type": "gdb",
+    "memoryView.gdb.path": "D:\\msys\\ucrt64\\bin\\gdb.exe",
+    "memoryView.gdb.autoConnect": true,
+
+    "memoryView.format.uppercaseHex": true,
+    "memoryView.format.groupBytes": 4,
+    "memoryView.format.showOffsets": true,
+    "memoryView.addressRadix": "hex",
+
+    "memoryView.memoryRegions.autoAddStack": true,
+    "memoryView.memoryRegions.autoAddHeap": false,
+    "memoryView.memoryRegions.stackSize": 512,
+
+    "memoryView.advanced.autoRefreshInterval": 1000,
+    "memoryView.advanced.maxMemoryReadSize": 65536,
+    "memoryView.advanced.enableCaching": true,
+
+    // 颜色主题（可选，根据你的 VS Code 主题调整）
+    "memoryView.theme.highlightColor": "#ff555555",
+    "memoryView.theme.changedByteColor": "#55ff5555",
+    "memoryView.theme.addressColor": "#5555ffff"
+
 }
