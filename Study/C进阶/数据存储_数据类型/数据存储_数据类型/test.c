@@ -105,25 +105,67 @@
 // 	return 0;
 // }
 
-int main()
-{
-    char *p = "abcdef";
+// int main()
+// {
+//     char *p = "abcdef";
 
-    printf("%d\n", sizeof(p));      //4/8
-    printf("%d\n", sizeof(p + 1));  //4/8
-    printf("%d\n", sizeof(*p));     //1
-    printf("%d\n", sizeof(p[0]));   //1
-    printf("%d\n", sizeof(&p));     //4/8
-    printf("%d\n", sizeof(&p + 1)); //4/8
-    printf("%d\n", sizeof(&p[0] + 1)); //4/8
+//     printf("%d\n", sizeof(p));      //4/8
+//     printf("%d\n", sizeof(p + 1));  //4/8
+//     printf("%d\n", sizeof(*p));     //1
+//     printf("%d\n", sizeof(p[0]));   //1
+//     printf("%d\n", sizeof(&p));     //4/8
+//     printf("%d\n", sizeof(&p + 1)); //4/8
+//     printf("%d\n", sizeof(&p[0] + 1)); //4/8
 
-    printf("%d\n", strlen(p));       //6
-    printf("%d\n", strlen(p + 1));   //5
-    //printf("%d\n", strlen(*p));      //err
-    //printf("%d\n", strlen(p[0]));    //err
-    printf("%d\n", strlen(&p));      //随机值
-    printf("%d\n", strlen(&p + 1));  //随机值,比上面的随机值
-    printf("%d\n", strlen(&p[0] + 1)); //随机值
+//     printf("%d\n", strlen(p));       //6
+//     printf("%d\n", strlen(p + 1));   //5
+//     //printf("%d\n", strlen(*p));      //err
+//     //printf("%d\n", strlen(p[0]));    //err
+//     printf("%d\n", strlen(&p));      //随机值
+//     printf("%d\n", strlen(&p + 1));  //随机值,比上面的随机值
+//     printf("%d\n", strlen(&p[0] + 1)); //随机值
 
-    return 0;
-}
+//     return 0;
+// }
+//
+// 
+//int main()
+//{
+//    int a[3][4] = { 0 };
+//
+//    printf("%d\n", sizeof(a));       // 48
+//    printf("%d\n", sizeof(a[0][0])); // 4
+//    printf("%d\n", sizeof(a[0]));    //16
+//    //a[0]是第一行一维数组的数组名,单独放在sizeof内部,a[0]表示第一个整个这个一维数组
+//	//所以sizeof(a[0])是第一个一维数组的大小, 4个元素每个元素4字节, 所以是16字节
+//    printf("%d\n", sizeof(a[0] + 1));//16    4
+//	//这里的a[0]是第一行第一个元素的地址,是一个指向int的指针,a[0]+1是第二个元素的地址
+//    //也是一个指向int的指针,所以sizeof(a[0]+1)是指针的大小,4/8
+//    printf("%d\n", sizeof(*(a[0] + 1)));//4
+//	//a[0]是第一行第一个元素的地址,是一个指向int的指针,a[0]+1是第二个元素的地址
+//	//*(a[0]+1)是第二个元素,是一个int,所以sizeof(*(a[0]+1))是int的大小,4字节
+//    printf("%d\n", sizeof(a + 1));   //16   4
+//    //a是二维数组的数组名,是二维数组的地址,但是并没有放在sizeof内部,也没有取地址
+//    //所以a表示二维数组首元素的地址,二维数组的首元素是他的第一行,a就是第一行的地址
+//    //第一行是一个数组,所以a+1是第二行的地址,是地址就是4/8字节
+//    printf("%d\n", sizeof(*(a + 1))); //4  16
+//    //a+1是第二行的地址,是个一维数组
+//	//*(a+1)是对第二行地址的解引用,拿到的是第二行这个一维数组,
+//    //所以sizeof(*(a+1))是第二行这个一维数组的大小,4个元素每个元素4字节,所以是16字节
+//    printf("%d\n", sizeof(&a[0] + 1)); //16  4
+//	//&a[0]是第一行的地址,是一个指向一维数组的指针,&a[0]+1是第二行的地址,也是一个指向一维数组的指针
+//    printf("%d\n", sizeof(*(&a[0] + 1))); //4 16
+//	//&a[0]是第一行的地址,&a[0]+1是第二行的地址,对第二行的地址解引用
+//    //拿到的是第二行这个一维数组,所以sizeof(*(&a[0]+1))是第二行这个一维数组的大小
+//    //4个元素每个元素4字节,所以是16字节
+//    printf("%d\n", sizeof(*a));  //4  16
+//	//a是二维数组的数组名,是二维数组的地址,但是并没有单独放在sizeof内部,也没有取地址
+//	//所以a表示二维数组首元素的地址,二维数组的首元素是他的第一行,a就是第一行的地址
+//	//对第一行的地址解引用,拿到的是第一行这个一维数组,所以sizeof(*a)是第一行这个一维数组的大小
+//    //4个元素每个元素4字节,所以是16字节
+//    printf("%d\n", sizeof(a[3]));//16
+//	//a[3]是第四行的数组名,第四行不存在,但是sizeof在编译阶段就计算了大小,所以不会报错
+//	//sizeof不会真的去访问a[3],仅仅计算了a[3]这个一维数组的大小,4个元素每个元素4字节,所以是16字节
+//	return 0;
+//}
+
