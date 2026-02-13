@@ -4,6 +4,7 @@
 *.vcxproj.filters
 *.vcxproj.user
 *.sln
+*.slnx
 
 # 忽略编译生成的二进制文件和可执行文件
 *.exe
