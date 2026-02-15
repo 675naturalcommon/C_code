@@ -62,4 +62,53 @@
 
 
 
+//struct S
+//{
+//	int data[100];
+//	int num;
+//};
+//
+//
+//void print1(struct S ss)
+//{
+//	int i = 0;
+//	for (i = 0; i < 3; i++)
+//	{
+//		printf("%d ", ss.data[i]);
+//	}
+//	printf("%d\n", ss.num);
+//}
+//
+//void print2(const struct S* ss)
+//{
+//	int i = 0;
+//	for (i = 0; i < 3; i++)
+//	{
+//		printf("%d ", ss->data[i]);
+//	}
+//	printf("%d\n", ss->num);
+//}
+//
+//
+//int main()
+//{
+//	struct S s = { {1,2,3},100 };
+//	print1(s);    //传值调用
+//	print2(&s);   //传址调用
+//	return 0;
+//}
+ 
 
+struct A
+{
+	int _a : 2;
+	int _b : 5;
+	int _c : 10;
+	int _d : 20;
+};
+
+int main()
+{
+	printf("%d", sizeof(struct A));
+	return 0;
+}
