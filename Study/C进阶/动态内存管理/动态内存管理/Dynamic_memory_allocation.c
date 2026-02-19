@@ -343,3 +343,47 @@
 //     Test();
 //     return 0;
 // }
+
+// void GetMemory(char **p, int num)
+// {
+//     *p = (char *)malloc(num);
+// }
+// //没有释放动态开辟的内存空间,导致内存泄露
+// void Test(void)
+// {
+//     char *str = NULL;
+//     GetMemory(&str, 100);
+//     strcpy(str, "hello");
+//     printf(str);
+//     free(str); // 释放动态开辟的内存空间
+//     str = NULL;
+// }
+
+// int main()
+// {
+//     Test();
+//     return 0;
+// }
+
+// void Test(void)
+// {
+//     char *str = (char *)malloc(100);
+//     strcpy(str, "hello");
+//     free(str);
+//     //str = NULL;  //手动将str置为空,防止str变为野指针
+//     //free(str)之后,str原本用malloc申请的空间就被释放了,这块空间可能被计算机分配给其他进程使用
+//     //但此时str还是指向的原地址
+//     //所以str此时是野指针,再次访问该地址可能会导致程序崩溃
+//     //所以在free之后,应该将str置为NULL,避免再次使用野指针
+//     if (str != NULL)//这本身就是个无效判断,free之后,str的值不为空
+//     {
+//         strcpy(str, "world");
+//         printf(str);
+//     }
+// }
+
+// int main()
+// {
+//     Test();
+//     return 0;
+// }
