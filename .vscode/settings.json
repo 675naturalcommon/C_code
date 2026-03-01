@@ -74,6 +74,18 @@
   "C_Cpp.errorSquiggles": "disabled",
   "github.copilot.nextEditSuggestions.enabled": false,
 
+  // ============ C/C++ 扩展配置 ============
+  // 为 C++ 文件单独指定默认格式化程序
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  // 如果你也希望 C 文件使用它，可以一并配置
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  // 确保保存时格式化是开启的
+  "editor.formatOnSave": true
+
   // ============ Code Runner 配置（保持不变） ============
   "code-runner.executorMap": {
     "c": "cd $dir && D:\\msys\\ucrt64\\bin\\gcc.exe -fdiagnostics-color=always -g $fileName -o $fileNameWithoutExt.exe && $dir$fileNameWithoutExt.exe",
@@ -98,7 +110,9 @@
   "C_Cpp.default.cppStandard": "c++17",
   "C_Cpp.default.cStandard": "c11",
   "C_Cpp.default.intelliSenseMode": "windows-gcc-x64",
-  "C_Cpp.default.includePath": ["${workspaceFolder}/**"],
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/**"
+  ],
 
   // ============ 新增 Memory View 扩展配置 ============
   "memoryView.general.defaultEndianness": "little",
