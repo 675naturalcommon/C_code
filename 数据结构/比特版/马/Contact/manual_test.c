@@ -1,6 +1,4 @@
 #include "Contact.h"
-#include <stdio.h>
-#include <string.h>
 
 // 手动测试函数
 void test_contact_system()

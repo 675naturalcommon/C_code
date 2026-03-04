@@ -1,5 +1,4 @@
 #include "Contact.h"
-#include <stdio.h>
 
 // 菜单显示函数
 void menu()
