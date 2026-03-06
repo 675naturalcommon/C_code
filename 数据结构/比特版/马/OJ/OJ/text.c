@@ -260,6 +260,7 @@ struct ListNode *middleNode(struct ListNode *head)
 
     ListNode *slow = head;
     ListNode *fast = head;
+    // 满指针每次走一步,快指针每次走两步,快指针是慢指针速度的两倍,当快指针走向尾节点的时候,慢指针走了链表的一半
     while (fast && fast->next)
     {
         slow = slow->next;
