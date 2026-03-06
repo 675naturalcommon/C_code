@@ -169,4 +169,47 @@
   // "terminal.integrated.env.windows": {
   //     "PATH": "${env:PATH};D:\\000_Node.js"
   // }
+
+  // "editor.tokenColorCustomizations": {
+  //   "textMateRules": [
+  //     {
+  //       "name": "Function names",
+  //       "scope": [
+  //         "entity.name.function"
+  //       ],
+  //       "settings": {
+  //         "foreground": "#dcdcaa"
+  //       } // 亮黄色
+  //     },
+  //     {
+  //       "name": "Struct names",
+  //       "scope": [
+  //         "entity.name.type.struct",
+  //         "entity.name.type"
+  //       ],
+  //       "settings": {
+  //         "foreground": "#4ec9b0"
+  //       } // 蓝绿色
+  //     },
+  //     {
+  //       "name": "Class names",
+  //       "scope": [
+  //         "entity.name.type.class"
+  //       ],
+  //       "settings": {
+  //         "foreground": "#4ec9b0"
+  //       }
+  //     },
+  //     {
+  //       "name": "Type aliases",
+  //       "scope": [
+  //         "entity.name.type.typedef"
+  //       ],
+  //       "settings": {
+  //         "foreground": "#4ec9b0"
+  //       }
+  //     }
+  //   ]
+  // }
+
 }
