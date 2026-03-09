@@ -1,0 +1,2 @@
+category,action,path,size_bytes,status,message
+junk_pattern,restore,D:\C and C++\C++黑马学习\restore_test3\aaa\file1.tmp,6,ok,restored_from=D:\C and C++\C++黑马学习\restore_test3\quarantine\C\aaa\file1.tmp;warning=copied_only;source_not_removed=[WinError 5] 拒绝访问。: 'D:\\C and C++\\C++黑马学习\\restore_test3\\quarantine\\C\\aaa\\file1.tmp'

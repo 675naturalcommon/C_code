@@ -1,0 +1,2 @@
+category,action,path,size_bytes,status,message
+junk_pattern,restore,D:\C and C++\C++黑马学习\restore_test\temp\demo.txt,13,failed,[WinError 5] 拒绝访问。: 'D:\\C and C++\\C++黑马学习\\restore_test\\quarantine\\C\\temp\\demo.txt'
